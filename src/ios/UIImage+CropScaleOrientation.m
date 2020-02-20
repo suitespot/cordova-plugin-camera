@@ -172,4 +172,52 @@
     return newImage;
 }
 
+- (UIImage*)thumbnailImageWithScaling:(CGSize)targetSize
+{
+    UIImage* sourceImage = self;
+    NSData* imgData = UIImageJPEGRepresentation(sourceImage, 0.8f);
+    CGImageSourceRef sourceImgData = CGImageSourceCreateWithData((CFDataRef)imgData, nil);
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    CGFloat targetWidth = targetSize.width;
+    CGFloat targetHeight = targetSize.height;
+    CGFloat scaleFactor = 0.0;
+    CGSize scaledSize = targetSize;
+    
+    if (CGSizeEqualToSize(imageSize, targetSize) == NO) {
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        
+        // opposite comparison to imageByScalingAndCroppingForSize in order to contain the image within the given bounds
+        if (widthFactor > heightFactor) {
+            scaleFactor = heightFactor; // scale to fit height
+        } else {
+            scaleFactor = widthFactor; // scale to fit width
+        }
+        scaledSize = CGSizeMake(MIN(width * scaleFactor, targetWidth), MIN(height * scaleFactor, targetHeight));
+    }
+    
+    // If the pixels are floats, it causes a white line in iOS8 and probably other versions too
+    scaledSize.width = (int)scaledSize.width;
+    scaledSize.height = (int)scaledSize.height;
+    
+    CFDictionaryRef options = (__bridge CFDictionaryRef)[NSDictionary dictionaryWithObjectsAndKeys:
+        (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailWithTransform,
+        (id)kCFBooleanTrue, (id)kCGImageSourceCreateThumbnailFromImageIfAbsent,
+        (id)@(scaleFactor),
+        (id)kCGImageSourceThumbnailMaxPixelSize,
+        nil];
+    
+    CGImageRef newImageRef = CGImageSourceCreateThumbnailAtIndex(sourceImgData, 0, options);
+    
+    UIImage* scaledImage = [UIImage imageWithCGImage:newImageRef];
+    
+    if (scaledImage == nil) {
+        NSLog(@"could not scale image");
+    }
+    
+    return scaledImage;
+}
+
 @end

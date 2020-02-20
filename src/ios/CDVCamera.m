@@ -430,7 +430,7 @@ static NSString* toBase64(NSData* data) {
         if (options.cropToSize) {
             scaledImage = [image imageByScalingAndCroppingForSize:options.targetSize];
         } else {
-            scaledImage = [image imageByScalingNotCroppingForSize:options.targetSize];
+            scaledImage = [image thumbnailImageWithScaling:options.targetSize];
         }
     }
 

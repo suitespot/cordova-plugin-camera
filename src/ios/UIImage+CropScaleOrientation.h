@@ -25,5 +25,6 @@
 - (UIImage*)imageCorrectedForCaptureOrientation;
 - (UIImage*)imageCorrectedForCaptureOrientation:(UIImageOrientation)imageOrientation;
 - (UIImage*)imageByScalingNotCroppingForSize:(CGSize)targetSize;
+- (UIImage*)thumbnailImageWithScaling:(CGSize)targetSize;
 
 @end

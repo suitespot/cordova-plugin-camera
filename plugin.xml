@@ -18,10 +18,8 @@
   under the License.
 -->
 
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    id="cordova-plugin-camera"
-    version="4.1.1-dev">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-camera" version="4.1.1-dev">
     <name>Camera</name>
     <description>Cordova Camera Plugin</description>
     <license>Apache 2.0</license>
@@ -57,15 +55,9 @@
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         </config-file>
         <config-file target="AndroidManifest.xml" parent="application">
-          <provider
-              android:name="org.apache.cordova.camera.FileProvider"
-              android:authorities="${applicationId}.provider"
-              android:exported="false"
-              android:grantUriPermissions="true" >
-              <meta-data
-                  android:name="android.support.FILE_PROVIDER_PATHS"
-                  android:resource="@xml/camera_provider_paths"/>
-          </provider>
+            <provider android:name="org.apache.cordova.camera.FileProvider" android:authorities="${applicationId}.provider" android:exported="false" android:grantUriPermissions="true">
+                <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/camera_provider_paths"/>
+            </provider>
         </config-file>
 
         <source-file src="src/android/CameraLauncher.java" target-dir="src/org/apache/cordova/camera" />
@@ -77,42 +69,42 @@
 
         <js-module src="www/CameraPopoverHandle.js" name="CameraPopoverHandle">
             <clobbers target="CameraPopoverHandle" />
-          </js-module>
+        </js-module>
 
         <preference name="ANDROID_SUPPORT_V4_VERSION" default="27.+"/>
         <framework src="com.android.support:support-v4:$ANDROID_SUPPORT_V4_VERSION"/>
 
-      </platform>
+    </platform>
 
-     <!-- ios -->
-     <platform name="ios">
-         <config-file target="config.xml" parent="/*">
-             <feature name="Camera">
-                 <param name="ios-package" value="CDVCamera" />
-             </feature>
-             <preference name="CameraUsesGeolocation" value="false" />
-         </config-file>
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Camera">
+                <param name="ios-package" value="CDVCamera" />
+            </feature>
+            <preference name="CameraUsesGeolocation" value="false" />
+        </config-file>
 
-         <js-module src="www/ios/CameraPopoverHandle.js" name="CameraPopoverHandle">
+        <js-module src="www/ios/CameraPopoverHandle.js" name="CameraPopoverHandle">
             <clobbers target="CameraPopoverHandle" />
-         </js-module>
+        </js-module>
 
-         <header-file src="src/ios/UIImage+CropScaleOrientation.h" />
-         <source-file src="src/ios/UIImage+CropScaleOrientation.m" />
-         <header-file src="src/ios/CDVCamera.h" />
-         <source-file src="src/ios/CDVCamera.m" />
-         <header-file src="src/ios/CDVJpegHeaderWriter.h" />
-         <source-file src="src/ios/CDVJpegHeaderWriter.m" />
-         <header-file src="src/ios/CDVExif.h" />
-         <framework src="ImageIO.framework" weak="true" />
-         <framework src="CoreLocation.framework" />
-         <framework src="CoreGraphics.framework" />
-         <framework src="AssetsLibrary.framework" />
-         <framework src="MobileCoreServices.framework" />
-         <framework src="CoreGraphics.framework" />
-         <framework src="AVFoundation.framework" />
-
-     </platform>
+        <header-file src="src/ios/UIImage+CropScaleOrientation.h" />
+        <source-file src="src/ios/UIImage+CropScaleOrientation.m" />
+        <header-file src="src/ios/CDVCamera.h" />
+        <source-file src="src/ios/CDVCamera.m" />
+        <header-file src="src/ios/CDVJpegHeaderWriter.h" />
+        <source-file src="src/ios/CDVJpegHeaderWriter.m" />
+        <header-file src="src/ios/CDVExif.h" />
+        <framework src="ImageIO.framework" weak="true" />
+        <framework src="CoreLocation.framework" />
+        <framework src="CoreGraphics.framework" />
+        <framework src="AssetsLibrary.framework" />
+        <framework src="MobileCoreServices.framework" />
+        <framework src="CoreGraphics.framework" />
+        <framework src="AVFoundation.framework" />
+        <framework src="DFJPEGTurbo" type="podspec" spec="~> 0.2.1" />
+    </platform>
 
     <!-- browser -->
     <platform name="browser">
@@ -151,12 +143,12 @@
         <js-module src="www/CameraPopoverHandle.js" name="CameraPopoverHandle">
             <clobbers target="CameraPopoverHandle" />
         </js-module>
-        
+
         <header-file src="src/osx/CDVCamera.h" />
         <source-file src="src/osx/CDVCamera.m" />
-                
+
         <framework src="Quartz.framework" />
         <framework src="AppKit.framework" />
     </platform>
-    
+
 </plugin>
